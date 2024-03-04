@@ -1,0 +1,35 @@
+---
+title: 
+  "Probable Justice"
+subtitle:
+  "Examining the Applications of Statistics in Legal Proceedings"
+author: 
+  "Joey Hotz"
+format: 
+  revealjs:
+    slide-number: true
+    theme: [default, custom.scss]
+---
+
+## Table of Contents
+
+1. Legal Background
+
+1.
+
+1.
+
+1. Key Takeaways
+
+# Legal Background
+
+## Criminal and Civil Cases
+
+In the Canadian Justice System, there are two forms of legal proceedings; [<u>civil law</u>]{.secondary} and [<u>criminal law</u>]{.secondary} 
+
+# 
+
+## Resources
+
+- 
+  

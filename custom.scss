@@ -4,14 +4,15 @@ $body-bg: #fafafa;
 $body-color: #000000;
 $primary: #005500;
 $secondary: #ff9900;
-$tertiary: #22ff22;
-$quaternary: #bb44ff;
+$tertiary: #bb44ff;
+$quaternary: #22ff22;
 $presentation-heading-color: $primary;
 $link-color: $secondary;
 
 .primary {color: $primary;}
 .secondary {color: $secondary;}
 .tertiary {color: $tertiary;}
+.quaternary {color: $quaternary;}
 
 /*-- scss:rules --*/
 

@@ -13,23 +13,47 @@ format:
 
 ## Table of Contents
 
-1. Legal Background
+1.  Legal Background
 
-1.
+1.  
 
-1.
+1.  
 
-1. Key Takeaways
+1.  Key Takeaways
 
-# Legal Background
+# [Legal Background]{.primary} {background-color=#00ddff}
 
 ## Criminal and Civil Cases
 
-In the Canadian Justice System, there are two forms of legal proceedings; [<u>civil law</u>]{.secondary} and [<u>criminal law</u>]{.secondary} 
+In the Canadian Justice System, there are two forms of legal proceedings; [civil law]{.secondary} and [criminal law]{.secondary}.
 
-# 
+::::: panel-tabset
 
-## Resources
+### Criminal Law
 
-- 
-  
+::: {style="font-size: 80%;"}
+
+- The defendant is [presumed innocent until proven guilty]{.tertiary} of a criminal act
+- The burden of proof is on the prosecution to prove that the defendant is guilty [beyond a reasonable doubt]{.tertiary}
+
+![](https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Police-PNG/Handcuffs_PNG_Clip_Art_Image.png?m=1448078102){.absolute bottom=0 right=0 width=400}
+:::
+
+### Civil Law
+
+::: {style="font-size: 80%;"}
+
+- The defendant is accused of causing harm and/or damages through their actions
+- The plaintiff must show that the defendant is *probably* liable for daamges based on a [balance of probabilities]{.tertiary}
+
+![](https://i.ytimg.com/vi/TsnJntoLvk4/maxresdefault.jpg){.absolute bottom=0 right=0 width=400}
+:::
+
+:::::
+
+## Works Cited
+
+- https://onlinelibrary.wiley.com/doi/10.1002/sim.4780141505
+- https://pubmed.ncbi.nlm.nih.gov/16118808/
+- https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=1330&context=tme
+- https://www.justice.gc.ca/eng/csj-sjc/just/08.html

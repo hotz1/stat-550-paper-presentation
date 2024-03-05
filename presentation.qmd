@@ -1,8 +1,8 @@
 ---
 title: 
-  "Probable Justice"
+  "*Discriminating* Between Statistical Tests"
 subtitle:
-  "Examining the Applications of Statistics in Legal Proceedings"
+  "Applications of Probabilistic Methods<br>and Models in the Courtroom"
 author: 
   "Joey Hotz"
 format: 
@@ -27,7 +27,7 @@ library(kableExtra)
 
 1. Key Takeaways
 
-# [Legal Background]{.primary} {background-color=#00ddff}
+<!-- # [Legal Background]{.primary} {background-color=#00ddff}  -->
 
 ## Criminal and Civil Cases
 
@@ -38,39 +38,46 @@ In the Canadian Justice System, there are two forms of legal proceedings; [crimi
 ### Criminal Law
 
 :::: {style="font-size: 80%; width: 550px"}
-
-- The defendant is [presumed innocent until proven guilty]{.tertiary} of a criminal act
-- The burden of proof is on the prosecution to prove that the defendant is guilty [beyond a reasonable doubt]{.tertiary}
-
-![](images/handcuffs.png){.absolute bottom=100 right=0 width=400}
-
+- The defendant is [presumed innocent until proven guilty]{.tertiary} of a criminal act.
+- The burden of proof is on the prosecution to prove that the defendant is guilty [beyond a reasonable doubt]{.tertiary}.
+- The *Criminal Code* outlines the punishments for anyone convicted of a crime.
 ::::
+![](images/handcuffs.png){.absolute bottom=100 right=0 width=500}
 
 ### Civil Law
 
 ::: {style="font-size: 80%; width: 550px;"}
-
-- The defendant is accused of causing harm and/or damages through their actions
-- The plaintiff must show that the defendant is *probably* liable for damages based on a [balance of probabilities]{.tertiary}
-
-![](images/balance-of-probabilities.png){.absolute bottom=0 right=0 width=400}
+- The defendant is accused of causing harm and/or damages through their actions.
+- The plaintiff must show that the defendant is <u>likely</u> liable for damages based on a [balance of probabilities]{.tertiary}.
 :::
-
+![](images/balance-of-probabilities.png){.absolute bottom=0 right=0 width=450}
 :::::
 
-## The Balance of Probabilities
+## Proving Discrimination 
+::: {.incremental}
+ - Legally, [discrimination]{.tertiary} occurs when a person is unfairly disadvantaged due to a [protected ground]{.tertiary}, such as:
+     * Age
+     * Sex
+     * Gender identity/presentation
+     * Race
+ - Note: Discrimination does **not** have to be intentional. The definition considers impact, not intent.
+ - Discrimination lawsuits are primarily handled in civil courts, where the burden of proof is a balance of probabilities.
+:::
 
-## "Proving" Discrimination
-
-# [Example 1]{.primary} {background-color=#00ddff}
-
-The Limitations of Relative Risk
+## Statistical Interpretation
+::: {.incremental}
+ - We can consider these discrimination lawsuits under a [hypothesis testing]{.secondary} framework.
+ - The [null hypothesis]{.tertiary} ($H_0$) is that there is no discrimination in the provided scenario.
+     * Rejecting $H_0$ is equivalent to finding the defendant liable.
+     * Failing to reject $H_0$ means that there is not sufficient enough evidence to convince the court of discrimination.
+:::
 
 ## Employee Firing Rates
-
-The following table depicts the race-related data from the U.S. legal case *Council 31 v. Ward* (1991). 
-
-The plaintiffs believed that the layoffs discriminated against Black employees.
+::: {.incremental}
+ - *Council 31 v. Ward* (1991) is a legal case from Illinois concerning a mass layoff of over 200 government employees.
+ - 40.1% of the fired employees were Black, despite the fact that Black employees comprised only 34.3% of the workforce.
+ - The plaintiffs argued that these layoffs discriminated against Black employees due to their race.
+:::
 
 . . .
 
@@ -89,7 +96,7 @@ firing.disc.df["% Retained"] =
   paste0(formatC(firing.disc.df$`% Retained`, digits = 1, format = "f"), "%")
 
 firing.disc.df %>%
-  kable(align = "r") %>%
+  kable(align = "r", caption = "The contingency table of employee layoffs by race") %>%
   column_spec(column = 1, border_left = TRUE) %>%
   column_spec(column = c(1,4,6), border_right = TRUE) %>%
   row_spec(row = c(0,2), extra_css = "border-bottom-style: solid") 
@@ -99,22 +106,47 @@ firing.disc.df %>%
 
 ## Applying Relative Risk
 
-The standard in many discrimination cases is to examine the [relative risk]{.secondary} between the groups.
+::: {.fragment fragment-index=1}
+::: {.fragment .fade-out fragment-index=2}
+ - The standard in many discrimination cases is to examine the [relative risk]{.secondary} between the groups. 
+ - Relative risk is a ratio which compares the likelihood of an event or outcome across multiple groups.
+:::
+:::
 
-. . .
+::: {.fragment fragment-index=2}
+![](images/phoenix-wright-discrimination.png){.absolute bottom=50 left=0 height=500}
+:::
 
-![](images/phoenix-wright-discrimination.png){.absolute bottom=0 left=0 width=500}
+::: {.fragment fragment-index=3}
+![](images/apollo-justice-discrimination.png){.absolute bottom=0 right=0 height=500}
+:::
 
-. . .
+## The Odds Ratio
 
-![](images/apollo-justice-discrimination.png){.absolute bottom=0 right=0 width=500}
+::: {.incremental}
+ - The odds ratio is a measurement which can be used to quantify the association between a pair of events. 
+ - In this situation, the [odds ratio]{.secondary} may be a better metric for assessing whether these layoffs were discriminatory towards Black employees.
+ - In this legal case, the odds ratio is $\frac{130/1382}{87/2813} = 3.04$.
+     * This signifies a strong association between an employee being Black and an employee being fired.
+:::
 
 ## Fisher's Exact Test
 
-Instead of using the relatve risk, we can use [Fisher's Exact Test]{.secondary} to assess the data.
+::::: {.columns .v-center-container}
+:::: {.column width="60%"}
+::: {.fragment fragment-index=1}
+ - [Fisher's Exact Test]{.secondary} is a statistical test which is used for analyzing contingency tables.
+ - The test assumes that the margins of the table are fixed.
+:::
+::: {.fragment fragment-index=3}
+ - If employees are fired "fairly" (without discrimination based on race), the odds ratio should be close to 1.
+     * We can write this as a null hypothesis; $H_0: \text{OR} = 1$, with $H_A: \text{OR} \ne 1$.
+:::
+::::
 
-::: {style="font-size: 80%;"}
-
+:::: {.column width="40%"}
+::: {style="font-size: 75%;"}
+::: {.fragment fragment-index=2}
 ```{r finding-marginals}
 marginal.disc.df <- firing.disc.df[, 2:3]
 marginal.disc.df <- cbind(marginal.disc.df, "Total" = rowSums(marginal.disc.df))
@@ -127,18 +159,26 @@ marginal.disc.df %>%
   row_spec(row = 0:3, hline_after = TRUE) %>%
   row_spec(row = 3, extra_css = "border-bottom-style: solid", bold = TRUE) 
 ```
-
 :::
+:::
+::: {.fragment fragment-index=4}
+```{r fisher-exact-test, message = FALSE, echo = FALSE}
+fisher <- fisher.test(marginal.disc.df[1:2,1:2], alternative = "two.sided")
+fisherCI <- fisher$conf.int
 
-```{r fisher-exact-test-1, message = FALSE, echo = FALSE, include=FALSE}
-fisher.test(marginal.disc.df[1:2,1:2], alternative = "two.sided")
+cat(paste0("\n\n\n\n\n\n\n\n", 
+           "The p-value for this hypothesis test is ", 
+           signif(fisher$p.value, 3), ".\n\n",
+           "The 95% confidence interval for the odds ratio is ", 
+           "(", round(fisherCI[1], 2), ", ", round(fisherCI[2], 2), ").\n"))
 ```
+:::
+::::
+:::::
 
-Fisher's Exact Test
+<!-- # [Example 2]{.primary} {background-color=#00ddff} -->
 
-# [Example 2]{.primary} {background-color=#00ddff}
-
-# [Key Messages]{.primary} {background-color=#00ddff}
+<!-- # [Key Messages]{.primary} {background-color=#00ddff} -->
 
 
 ## Works Cited

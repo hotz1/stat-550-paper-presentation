@@ -11,45 +11,135 @@ format:
     theme: [default, custom.scss]
 ---
 
+```{r setup, warning = FALSE, comment = FALSE, message = FALSE}
+# load packages
+library(knitr)
+library(kableExtra)
+```
+
 ## Table of Contents
 
 1.  Legal Background
 
-1.  
+1. Example 1
 
-1.  
+1. Example 2
 
-1.  Key Takeaways
+1. Key Takeaways
 
 # [Legal Background]{.primary} {background-color=#00ddff}
 
 ## Criminal and Civil Cases
 
-In the Canadian Justice System, there are two forms of legal proceedings; [civil law]{.secondary} and [criminal law]{.secondary}.
+In the Canadian Justice System, there are two forms of legal proceedings; [criminal law]{.secondary} and [civil law]{.secondary}.
 
 ::::: panel-tabset
 
 ### Criminal Law
 
-::: {style="font-size: 80%;"}
+:::: {style="font-size: 80%; width: 550px"}
 
 - The defendant is [presumed innocent until proven guilty]{.tertiary} of a criminal act
 - The burden of proof is on the prosecution to prove that the defendant is guilty [beyond a reasonable doubt]{.tertiary}
 
-![](https://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Police-PNG/Handcuffs_PNG_Clip_Art_Image.png?m=1448078102){.absolute bottom=0 right=0 width=400}
-:::
+![](images/handcuffs.png){.absolute bottom=100 right=0 width=400}
+
+::::
 
 ### Civil Law
 
-::: {style="font-size: 80%;"}
+::: {style="font-size: 80%; width: 550px;"}
 
 - The defendant is accused of causing harm and/or damages through their actions
-- The plaintiff must show that the defendant is *probably* liable for daamges based on a [balance of probabilities]{.tertiary}
+- The plaintiff must show that the defendant is *probably* liable for damages based on a [balance of probabilities]{.tertiary}
 
-![](https://i.ytimg.com/vi/TsnJntoLvk4/maxresdefault.jpg){.absolute bottom=0 right=0 width=400}
+![](images/balance-of-probabilities.png){.absolute bottom=0 right=0 width=400}
 :::
 
 :::::
+
+## The Balance of Probabilities
+
+## "Proving" Discrimination
+
+# [Example 1]{.primary} {background-color=#00ddff}
+
+The Limitations of Relative Risk
+
+## Employee Firing Rates
+
+The following table depicts the race-related data from the U.S. legal case *Council 31 v. Ward* (1991). 
+
+The plaintiffs believed that the layoffs discriminated against Black employees.
+
+. . .
+
+::: {style="font-size: 80%;"}
+
+```{r example-1-table-1}
+firing.disc.df <- data.frame("Total" = c(1512, 2900), "Fired" = c(130, 87),
+                                "Retained" = c(1512 - 130, 2900 - 87), 
+                                row.names = c("Black", "White"))
+
+firing.disc.df["% Fired"] = 100 * firing.disc.df$Fired/firing.disc.df$Total
+firing.disc.df["% Retained"] = 100 * firing.disc.df$Retained/firing.disc.df$Total
+firing.disc.df["% Fired"] =
+  paste0(formatC(firing.disc.df$`% Fired`, digits = 1, format = "f"), "%")
+firing.disc.df["% Retained"] =
+  paste0(formatC(firing.disc.df$`% Retained`, digits = 1, format = "f"), "%")
+
+firing.disc.df %>%
+  kable(align = "r") %>%
+  column_spec(column = 1, border_left = TRUE) %>%
+  column_spec(column = c(1,4,6), border_right = TRUE) %>%
+  row_spec(row = c(0,2), extra_css = "border-bottom-style: solid") 
+```
+
+:::
+
+## Applying Relative Risk
+
+The standard in many discrimination cases is to examine the [relative risk]{.secondary} between the groups.
+
+. . .
+
+![](images/phoenix-wright-discrimination.png){.absolute bottom=0 left=0 width=500}
+
+. . .
+
+![](images/apollo-justice-discrimination.png){.absolute bottom=0 right=0 width=500}
+
+## Fisher's Exact Test
+
+Instead of using the relatve risk, we can use [Fisher's Exact Test]{.secondary} to assess the data.
+
+::: {style="font-size: 80%;"}
+
+```{r finding-marginals}
+marginal.disc.df <- firing.disc.df[, 2:3]
+marginal.disc.df <- cbind(marginal.disc.df, "Total" = rowSums(marginal.disc.df))
+marginal.disc.df <- rbind(marginal.disc.df, "Total" = colSums(marginal.disc.df))
+
+marginal.disc.df %>%
+  kable(align = "r") %>%
+  column_spec(column = 1:4, border_left = TRUE, border_right = TRUE) %>%
+  column_spec(4, bold = TRUE) %>%
+  row_spec(row = 0:3, hline_after = TRUE) %>%
+  row_spec(row = 3, extra_css = "border-bottom-style: solid", bold = TRUE) 
+```
+
+:::
+
+```{r fisher-exact-test-1, message = FALSE, echo = FALSE, include=FALSE}
+fisher.test(marginal.disc.df[1:2,1:2], alternative = "two.sided")
+```
+
+Fisher's Exact Test
+
+# [Example 2]{.primary} {background-color=#00ddff}
+
+# [Key Messages]{.primary} {background-color=#00ddff}
+
 
 ## Works Cited
 

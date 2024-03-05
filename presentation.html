@@ -603,16 +603,64 @@ The 95% confidence interval for the odds ratio is (2.28, 4.07).</code></pre>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Equal Employment Opportunity Commission</p></li></ol></aside></section>
 <section id="investigating-the-pay-inequality" class="slide level2">
 <h2>Investigating the Pay Inequality</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="fragment" data-fragment-index="1">
 <ul>
 <li>In this lawsuit, the <span class="tertiary">disparate impact</span> of discrimination is the difference in monthly salary between male and female employees.</li>
-<li>We can use <span class="secondary">linear regression</span> to determine the significance of this difference.</li>
 </ul>
+</div>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li><p><span class="secondary">Linear regression</span> can be used to determine the significance of this difference.</p>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li>The <span class="secondary">null hypothesis</span> (<span class="math inline">\(H_0\)</span>) is that sex does not impact salary.</li>
+</ul>
+</div></li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment" data-fragment-index="3">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.047818e-10</code></pre>
+<pre><code>
+
+
+
+
+
+The p-value corresponding to the Sex variable is 1.86e-05.
+
+
+
+The estimated effect of Sex on salary is $199.11 per month.</code></pre>
 </div>
 </div>
-</section></section>
+</div>
+</div>
+</div>
+</section>
+<section id="peters-belson-regression" class="slide level2">
+<h2>Peters-Belson Regression</h2>
+<div>
+<ul>
+<li class="fragment">Based on these outputs, it seems that the average female employee makes $199.11 less per month than a male employee with the same seniority level.</li>
+<li class="fragment">The <span class="tertiary">legal remedy</span> <em>could</em> be to pay each female employee $199.11 per month to make up the difference.
+<ul>
+<li class="fragment">However, seniority is also linearly correlated with the monthly salary.</li>
+</ul></li>
+<li class="fragment"><span class="secondary">Peters-Belsen regression</span> estimates the salary which each female employee would have earned, if they were paid like male employees.
+<ul>
+<li class="fragment">The legal remedy for each female employee is the difference between the earned salary and their deserved salary.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="peters-belson-regression-1" class="slide level2">
+<h2>Peters-Belson Regression</h2>
+
+<img data-src="presentation_files/figure-revealjs/peters-belson-regression-1.png" width="1056" class="r-stretch"></section></section>
 <section>
 <section id="key-messages" class="title-slide slide level1 center" data-visibility="uncounted" data-background-color="#005500">
 <h1><span style="color:#fafafa;">Key Messages</span></h1>

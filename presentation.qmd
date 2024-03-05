@@ -203,7 +203,7 @@ salary.df %>%
   ylim(0, NA) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.background = element_rect(fill = "#ffffff", colour = "#005500")) +
-  moderndive::geom_parallel_slopes(se = FALSE)
+  moderndive::geom_parallel_slopes(se = FALSE, linetype = "longdash")
 ```
 :::
 ::::
@@ -211,13 +211,75 @@ salary.df %>%
 
 ## Investigating the Pay Inequality
 
-- In this lawsuit, the [disparate impact]{.tertiary} of discrimination is the difference in monthly salary between male and female employees.
-- We can use [linear regression]{.secondary} to determine the significance of this difference.
+::::: {.columns}
 
-```{r linear-regression-methods-1}
+:::: {.column width="60%"}
+
+::: {.fragment fragment-index=1}
+- In this lawsuit, the [disparate impact]{.tertiary} of discrimination is the difference in monthly salary between male and female employees.
+:::
+
+::: {.fragment fragment-index=2}
+- [Linear regression]{.secondary} can be used to determine the significance of this difference.
+
+  ::: {.fragment fragment-index=2}
+  - The [null hypothesis]{.secondary} ($H_0$) is that sex does not impact salary.
+  :::
+  
+:::
+
+::::
+
+:::: {.column width="40%"}
+
+::: {.fragment fragment-index=3}
+
+```{r linear-regression-methods-1, comment = NA}
 lm_fit_1 <- lm(Salary ~ Seniority + Sex, data = salary.df)
 
-summary(lm_fit_1)$coefficients["Seniority", 4]
+salary_diff_pval <- summary(lm_fit_1)$coefficients["SexM", 4]
+sex_effect <- summary(lm_fit_1)$coefficients["SexM", 1]
+
+cat(paste0("\n\n\n\n\n\n", "The p-value corresponding to the Sex variable is ", 
+           signif(salary_diff_pval, 3), ".\n\n\n\n", 
+           "The estimated effect of Sex on salary is $", round(sex_effect, 2), 
+           " per month.", "\n\n\n\n\n\n"))
+```
+:::
+
+::::
+
+:::::
+
+## Peters-Belson Regression
+::: {.incremental}
+ - Based on these outputs, it seems that the average female employee makes $`r round(sex_effect, 2)` less per month than a male employee with the same seniority level. 
+ - The [legal remedy]{.tertiary} *could* be to pay each female employee $`r round(sex_effect, 2)` per month to make up the difference. 
+     * However, seniority is also linearly correlated with the monthly salary.
+ - [Peters-Belsen regression]{.secondary} estimates the salary which each female employee would have earned, if they were paid like male employees.
+     * The legal remedy for each female employee is the difference between the earned salary and their deserved salary.
+:::
+
+## Peters-Belson Regression
+```{r peters-belson-regression, fig.width=11, fig.height=10}
+lm_fit_2 <- lm(Salary ~ Seniority, data = salary.df, 
+               subset = salary.df$Sex == "M")
+male_fit_coefs <- unname(lm_fit_2$coefficients)
+
+salary.df %>% 
+  ggplot(aes(x = Seniority, y = Salary, color = Sex)) +
+  geom_point() +
+  scale_color_brewer(palette = "Dark2") +
+  theme_bw() +
+  labs(x = "Seniority (Months)", y = "Monthly Salary (USD)", 
+       title = paste0("Monthly Salary and seniority of 23 clerical employees in the", 
+                      "\n", "Shelby County Criminal Court Clerk’s Office")) +
+  ylim(0, NA) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.background = element_rect(fill = "#ffffff", colour = "#005500")) +
+  # moderndive::geom_parallel_slopes(se = FALSE, linetype = "longdash") +
+  geom_abline(slope = male_fit_coefs[2], intercept = male_fit_coefs[1], 
+              color = "#7570b3", linetype = "twodash", linewidth = 1)
 ```
 
 # [Key Messages]{style="color:#fafafa;"} {visibility="uncounted" background-color=#005500}

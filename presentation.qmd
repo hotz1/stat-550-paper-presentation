@@ -2,7 +2,7 @@
 title: 
   "*Discriminating* Between Statistical Tests"
 subtitle:
-  "Applications of Probabilistic Methods<br>and Models in the Courtroom"
+  "Applications of Probabilistic Methods and Models<br>in Discrimination Lawsuits in the United States"
 author: 
   "Joey Hotz"
 format: 
@@ -15,6 +15,7 @@ format:
 # load packages
 library(knitr)
 library(kableExtra)
+library(tidyverse)
 ```
 
 ## Table of Contents
@@ -27,28 +28,27 @@ library(kableExtra)
 
 1. Key Takeaways
 
-<!-- # [Legal Background]{.primary} {background-color=#00ddff}  -->
+# [Legal Background]{style="color:#fafafa;"} {visibility="uncounted" background-color=#005500}
 
 ## Criminal and Civil Cases
 
-In the Canadian Justice System, there are two forms of legal proceedings; [criminal law]{.secondary} and [civil law]{.secondary}.
+In the U.S. Justice System, there are two forms of legal proceedings; [criminal law]{.tertiary} and [civil law]{.tertiary}.
 
 ::::: panel-tabset
 
 ### Criminal Law
 
-:::: {style="font-size: 80%; width: 550px"}
+:::: {style="font-size: 80%; width: 550px;"}
 - The defendant is [presumed innocent until proven guilty]{.tertiary} of a criminal act.
 - The burden of proof is on the prosecution to prove that the defendant is guilty [beyond a reasonable doubt]{.tertiary}.
-- The *Criminal Code* outlines the punishments for anyone convicted of a crime.
 ::::
 ![](images/handcuffs.png){.absolute bottom=100 right=0 width=500}
 
 ### Civil Law
-
 ::: {style="font-size: 80%; width: 550px;"}
 - The defendant is accused of causing harm and/or damages through their actions.
-- The plaintiff must show that the defendant is <u>likely</u> liable for damages based on a [balance of probabilities]{.tertiary}.
+- The plaintiff must show that the defendant is *likely* liable for damages based on a "[preponderance of the evidence]{.tertiary}".
+- If the defendant is found liable, the court will determine a [legal remedy]{.tertiary} to compensate for the harm to the plaintiff(s).  
 :::
 ![](images/balance-of-probabilities.png){.absolute bottom=0 right=0 width=450}
 :::::
@@ -60,19 +60,21 @@ In the Canadian Justice System, there are two forms of legal proceedings; [crimi
      * Sex
      * Gender identity/presentation
      * Race
- - Note: Discrimination does **not** have to be intentional. The definition considers impact, not intent.
+ - Note: Discrimination does **not** have to be intentional. The legal definition considers impact, not intent.
  - Discrimination lawsuits are primarily handled in civil courts, where the burden of proof is a balance of probabilities.
 :::
 
 ## Statistical Interpretation
 ::: {.incremental}
  - We can consider these discrimination lawsuits under a [hypothesis testing]{.secondary} framework.
- - The [null hypothesis]{.tertiary} ($H_0$) is that there is no discrimination in the provided scenario.
+ - The [null hypothesis]{.secondary} ($H_0$) is that there is no discrimination in the provided scenario.
      * Rejecting $H_0$ is equivalent to finding the defendant liable.
      * Failing to reject $H_0$ means that there is not sufficient enough evidence to convince the court of discrimination.
 :::
 
-## Employee Firing Rates
+# [Employee Layoffs]{style="color:#fafafa;"} {visibility="uncounted" background-color=#005500}
+
+## Discrimination in Employee Layoffs
 ::: {.incremental}
  - *Council 31 v. Ward* (1991) is a legal case from Illinois concerning a mass layoff of over 200 government employees.
  - 40.1% of the fired employees were Black, despite the fact that Black employees comprised only 34.3% of the workforce.
@@ -96,7 +98,7 @@ firing.disc.df["% Retained"] =
   paste0(formatC(firing.disc.df$`% Retained`, digits = 1, format = "f"), "%")
 
 firing.disc.df %>%
-  kable(align = "r", caption = "The contingency table of employee layoffs by race") %>%
+  kable(align = "r", caption = "Table 1: Employee layoffs by race") %>%
   column_spec(column = 1, border_left = TRUE) %>%
   column_spec(column = c(1,4,6), border_right = TRUE) %>%
   row_spec(row = c(0,2), extra_css = "border-bottom-style: solid") 
@@ -132,7 +134,7 @@ firing.disc.df %>%
 
 ## Fisher's Exact Test
 
-::::: {.columns .v-center-container}
+::::: {.columns}
 :::: {.column width="60%"}
 ::: {.fragment fragment-index=1}
  - [Fisher's Exact Test]{.secondary} is a statistical test which is used for analyzing contingency tables.
@@ -176,10 +178,64 @@ cat(paste0("\n\n\n\n\n\n\n\n",
 ::::
 :::::
 
-<!-- # [Example 2]{.primary} {background-color=#00ddff} -->
+# [Pay Inequality]{style="color:#fafafa;"} {visibility="uncounted" background-color=#005500}
 
-<!-- # [Key Messages]{.primary} {background-color=#00ddff} -->
+## Remedying a Salary Gap
 
+::::: {.columns}
+:::: {.column width="40%"}
+ - *EEOC* ^[Equal Employment Opportunity Commission] *vs. Shelby County* (1988) is a case from Tennessee concerning unequal pay for male and female employees of the County. 
+ - In this lawsuit, the [remedy]{.tertiary} was determined using statistical modelling. 
+::::
+:::: {.column width="60%"} 
+::: {.fragment fragment-index=1}
+```{r salary-data-plot, fig.width = 11, fig.height = 8}
+salary.df <- read_csv("salary_seniority.csv", col_types = "fnfn")
+
+salary.df %>% 
+  ggplot(aes(x = Seniority, y = Salary, color = Sex)) +
+  geom_point() +
+  scale_color_brewer(palette = "Dark2") +
+  theme_bw() +
+  labs(x = "Seniority (Months)", y = "Monthly Salary (USD)", 
+       title = paste0("Monthly Salary and seniority of 23 clerical employees in the", 
+                      "\n", "Shelby County Criminal Court Clerk’s Office")) +
+  ylim(0, NA) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.background = element_rect(fill = "#ffffff", colour = "#005500")) +
+  moderndive::geom_parallel_slopes(se = FALSE)
+```
+:::
+::::
+:::::
+
+## Investigating the Pay Inequality
+
+- In this lawsuit, the [disparate impact]{.tertiary} of discrimination is the difference in monthly salary between male and female employees.
+- We can use [linear regression]{.secondary} to determine the significance of this difference.
+
+```{r linear-regression-methods-1}
+lm_fit_1 <- lm(Salary ~ Seniority + Sex, data = salary.df)
+
+summary(lm_fit_1)$coefficients["Seniority", 4]
+```
+
+# [Key Messages]{style="color:#fafafa;"} {visibility="uncounted" background-color=#005500}
+
+## Key Messages{style="font-size: 80%;"}
+::: {.incremental}
+ - Statistical methods and models are highly applicable in legal cases, particularly in civil lawsuits.
+ - We can view these civil lawsuits using a [hypothesis test]{.secondary}.
+ - [Fisher's Exact Test]{.secondary} can determine if there is a disparate impact between groups.
+     * The null hypothesis ($H_0$) is that there is no disparate impact; the odds ratio is 1.
+     * Fisher's Exact Test is best for 2x2 contingency tables, but it still works for larger tables.
+ - We can use [Peters-Belson regression]{.secondary} to determine the legal remedy for a disparate impact in salary or payment.
+     * PB regression is fitted based only on the values from the non-impacted group.
+     * The estimated outcomes from PB regression represent the expected salary of someone who is not discriminated against.
+     * The legal remedy ensures that all employees are paid as if they are members of the "majority group".
+:::
+
+# {visibility="uncounted" background-image="images/la-fin.jpeg"}
 
 ## Works Cited
 
@@ -187,3 +243,6 @@ cat(paste0("\n\n\n\n\n\n\n\n",
 - https://pubmed.ncbi.nlm.nih.gov/16118808/
 - https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=1330&context=tme
 - https://www.justice.gc.ca/eng/csj-sjc/just/08.html
+- https://judiciallearningcenter.org/types-of-court-cases/
+- https://law.justia.com/cases/federal/district-courts/FSupp/707/969/1574457/
+- https://law.justia.com/cases/federal/district-courts/FSupp/771/247/1656615/

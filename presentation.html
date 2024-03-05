@@ -329,7 +329,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title"><em>Discriminating</em> Between Statistical Tests</h1>
-  <p class="subtitle">Applications of Probabilistic Methods<br>and Models in the Courtroom</p>
+  <p class="subtitle">Applications of Probabilistic Methods and Models<br>in Discrimination Lawsuits in the United States</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -348,20 +348,23 @@ Joey Hotz
 <li><p>Example 2</p></li>
 <li><p>Key Takeaways</p></li>
 </ol>
-<!-- # [Legal Background]{.primary} {background-color=#00ddff}  -->
+</section>
+<section>
+<section id="legal-background" class="title-slide slide level1 center" data-visibility="uncounted" data-background-color="#005500">
+<h1><span style="color:#fafafa;">Legal Background</span></h1>
+
 </section>
 <section id="criminal-and-civil-cases" class="slide level2">
 <h2>Criminal and Civil Cases</h2>
-<p>In the Canadian Justice System, there are two forms of legal proceedings; <span class="secondary">criminal law</span> and <span class="secondary">civil law</span>.</p>
+<p>In the U.S. Justice System, there are two forms of legal proceedings; <span class="tertiary">criminal law</span> and <span class="tertiary">civil law</span>.</p>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Criminal Law</a></li><li><a href="#tabset-1-2">Civil Law</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div style="font-size: 80%; width: 550px">
+<div style="font-size: 80%; width: 550px;">
 <ul>
 <li>The defendant is <span class="tertiary">presumed innocent until proven guilty</span> of a criminal act.</li>
 <li>The burden of proof is on the prosecution to prove that the defendant is guilty <span class="tertiary">beyond a reasonable doubt</span>.</li>
-<li>The <em>Criminal Code</em> outlines the punishments for anyone convicted of a crime.</li>
 </ul>
 </div>
 <p><img data-src="images/handcuffs.png" class="absolute" style="bottom: 100px; right: 0px; width: 500px; "></p>
@@ -370,7 +373,9 @@ Joey Hotz
 <div style="font-size: 80%; width: 550px;">
 <ul>
 <li>The defendant is accused of causing harm and/or damages through their actions.</li>
-<li>The plaintiff must show that the defendant is <u>likely</u> liable for damages based on a <span class="tertiary">balance of probabilities</span>.</li>
+<li>The plaintiff must show that the defendant is <em>likely</em> liable for damages based on a “<span class="tertiary">preponderance of the evidence</span>”.</li>
+<li>If the defendant is found liable, the court will determine a <span class="tertiary">legal remedy</span> to compensate for the harm to the plaintiff(s).<br>
+</li>
 </ul>
 </div>
 <p><img data-src="images/balance-of-probabilities.png" class="absolute" style="bottom: 0px; right: 0px; width: 450px; "></p>
@@ -389,7 +394,7 @@ Joey Hotz
 <li class="fragment">Gender identity/presentation</li>
 <li class="fragment">Race</li>
 </ul></li>
-<li class="fragment">Note: Discrimination does <strong>not</strong> have to be intentional. The definition considers impact, not intent.</li>
+<li class="fragment">Note: Discrimination does <strong>not</strong> have to be intentional. The legal definition considers impact, not intent.</li>
 <li class="fragment">Discrimination lawsuits are primarily handled in civil courts, where the burden of proof is a balance of probabilities.</li>
 </ul>
 </div>
@@ -399,16 +404,21 @@ Joey Hotz
 <div>
 <ul>
 <li class="fragment">We can consider these discrimination lawsuits under a <span class="secondary">hypothesis testing</span> framework.</li>
-<li class="fragment">The <span class="tertiary">null hypothesis</span> (<span class="math inline">\(H_0\)</span>) is that there is no discrimination in the provided scenario.
+<li class="fragment">The <span class="secondary">null hypothesis</span> (<span class="math inline">\(H_0\)</span>) is that there is no discrimination in the provided scenario.
 <ul>
 <li class="fragment">Rejecting <span class="math inline">\(H_0\)</span> is equivalent to finding the defendant liable.</li>
 <li class="fragment">Failing to reject <span class="math inline">\(H_0\)</span> means that there is not sufficient enough evidence to convince the court of discrimination.</li>
 </ul></li>
 </ul>
 </div>
+</section></section>
+<section>
+<section id="employee-layoffs" class="title-slide slide level1 center" data-visibility="uncounted" data-background-color="#005500">
+<h1><span style="color:#fafafa;">Employee Layoffs</span></h1>
+
 </section>
-<section id="employee-firing-rates" class="slide level2">
-<h2>Employee Firing Rates</h2>
+<section id="discrimination-in-employee-layoffs" class="slide level2">
+<h2>Discrimination in Employee Layoffs</h2>
 <div>
 <ul>
 <li class="fragment"><em>Council 31 v. Ward</em> (1991) is a legal case from Illinois concerning a mass layoff of over 200 government employees.</li>
@@ -421,7 +431,7 @@ Joey Hotz
 <div class="cell">
 <div class="cell-output-display">
 <table data-quarto-postprocess="true">
-<caption>The contingency table of employee layoffs by race</caption>
+<caption>Table 1: Employee layoffs by race</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; border-bottom-style: solid;"></th>
@@ -490,7 +500,7 @@ Joey Hotz
 </section>
 <section id="fishers-exact-test" class="slide level2">
 <h2>Fisher’s Exact Test</h2>
-<div class="columns v-center-container">
+<div class="columns">
 <div class="column" style="width:60%;">
 <div class="fragment" data-fragment-index="1">
 <ul>
@@ -566,8 +576,72 @@ The 95% confidence interval for the odds ratio is (2.28, 4.07).</code></pre>
 </div>
 </div>
 </div>
-<!-- # [Example 2]{.primary} {background-color=#00ddff} -->
-<!-- # [Key Messages]{.primary} {background-color=#00ddff} -->
+</section></section>
+<section>
+<section id="pay-inequality" class="title-slide slide level1 center" data-visibility="uncounted" data-background-color="#005500">
+<h1><span style="color:#fafafa;">Pay Inequality</span></h1>
+
+</section>
+<section id="remedying-a-salary-gap" class="slide level2">
+<h2>Remedying a Salary Gap</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li><em>EEOC</em> <sup>1</sup> <em>vs.&nbsp;Shelby County</em> (1988) is a case from Tennessee concerning unequal pay for male and female employees of the County.</li>
+<li>In this lawsuit, the <span class="tertiary">remedy</span> was determined using statistical modelling.</li>
+</ul>
+</div><div class="column" style="width:60%;">
+<div class="fragment" data-fragment-index="1">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="presentation_files/figure-revealjs/salary-data-plot-1.png" width="1056"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Equal Employment Opportunity Commission</p></li></ol></aside></section>
+<section id="investigating-the-pay-inequality" class="slide level2">
+<h2>Investigating the Pay Inequality</h2>
+<ul>
+<li>In this lawsuit, the <span class="tertiary">disparate impact</span> of discrimination is the difference in monthly salary between male and female employees.</li>
+<li>We can use <span class="secondary">linear regression</span> to determine the significance of this difference.</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.047818e-10</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="key-messages" class="title-slide slide level1 center" data-visibility="uncounted" data-background-color="#005500">
+<h1><span style="color:#fafafa;">Key Messages</span></h1>
+
+</section>
+<section id="key-messages-1" class="slide level2" style="font-size: 80%;">
+<h2>Key Messages</h2>
+<div>
+<ul>
+<li class="fragment">Statistical methods and models are highly applicable in legal cases, particularly in civil lawsuits.</li>
+<li class="fragment">We can view these civil lawsuits using a <span class="secondary">hypothesis test</span>.</li>
+<li class="fragment"><span class="secondary">Fisher’s Exact Test</span> can determine if there is a disparate impact between groups.
+<ul>
+<li class="fragment">The null hypothesis (<span class="math inline">\(H_0\)</span>) is that there is no disparate impact; the odds ratio is 1.</li>
+<li class="fragment">Fisher’s Exact Test is best for 2x2 contingency tables, but it still works for larger tables.</li>
+</ul></li>
+<li class="fragment">We can use <span class="secondary">Peters-Belson regression</span> to determine the legal remedy for a disparate impact in salary or payment.
+<ul>
+<li class="fragment">PB regression is fitted based only on the values from the non-impacted group.</li>
+<li class="fragment">The estimated outcomes from PB regression represent the expected salary of someone who is not discriminated against.</li>
+<li class="fragment">The legal remedy ensures that all employees are paid as if they are members of the “majority group”.</li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="section" class="title-slide slide level1 center" data-visibility="uncounted" data-background-image="images/la-fin.jpeg">
+<h1></h1>
+
 </section>
 <section id="works-cited" class="slide level2">
 <h2>Works Cited</h2>
@@ -576,11 +650,15 @@ The 95% confidence interval for the odds ratio is (2.28, 4.07).</code></pre>
 <li>https://pubmed.ncbi.nlm.nih.gov/16118808/</li>
 <li>https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=1330&amp;context=tme</li>
 <li>https://www.justice.gc.ca/eng/csj-sjc/just/08.html</li>
+<li>https://judiciallearningcenter.org/types-of-court-cases/</li>
+<li>https://law.justia.com/cases/federal/district-courts/FSupp/707/969/1574457/</li>
+<li>https://law.justia.com/cases/federal/district-courts/FSupp/771/247/1656615/</li>
 </ul>
 <div class="footer footer-default">
 
 </div>
-</section>
+</section></section>
+
     </div>
   </div>
 
